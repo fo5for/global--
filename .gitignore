@@ -1,0 +1,10 @@
+target/
+.bloop/
+.metals/
+.bsp/
+metals.sbt
+project/Dependencies.scala
+project/metals.sbt
+**.worksheet.sc
+.vscode/
+input/
