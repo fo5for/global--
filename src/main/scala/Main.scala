@@ -16,7 +16,7 @@ object Main {
 
   private val dir = pwd/"input"
   private val allFiles = ls.rec(dir).filter(_.isFile)
-  private val validExt = Set("tpp")
+  private val validExt = Set("c", "cpp", "cxx", "tpp", "txx")
   private val ignore = Set("__MACOSX")
-  private val files = allFiles.filter(f => validExt(f.ext) && !ignore.exists(f.toString().contains(_)))
+  private val files = allFiles.filter(f => validExt(f.ext.toLowerCase()) && !ignore.exists(f.toString().contains(_)))
 }
