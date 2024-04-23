@@ -13,7 +13,7 @@ object Parser {
   def usng[_: P]: P[Unit] = P("using" ~ CharsWhileNotIn("(){};") ~ ";")
   def tydf[_: P]: P[Unit] = P("typedef" ~ CharsWhileNotIn("(){};") ~ ";")
   def tmpl[_: P]: P[Unit] = P("template" ~ balanced("<", ">"))
-  def func[_: P]: P[Unit] = P(tmpl.? ~ ("operator" ~ "()" | CharsWhileNotIn("(){};")) ~ balanced("(", ")") ~ (":" ~ (CharsWhileNotIn("(){};") ~ (balanced("(", ")") | balanced("{", "}"))).rep(sep = ",") | "const".?) ~ (balanced("{", "}") | "=" ~ ("default" | "delete" | "0")) ~ ";".?)
+  def func[_: P]: P[Unit] = P(tmpl.? ~ ("operator" ~ "()" | CharsWhileNotIn("(){};")) ~ balanced("(", ")") ~ (":" ~ (CharsWhileNotIn("(){};") ~ (balanced("(", ")") | balanced("{", "}"))).rep(sep = ",") | "const".?) ~ ((balanced("{", "}") | "=" ~ ("default" | "delete" | "0")) ~ ";".? | ";"))
   def cls[_: P]: P[Unit] = P(tmpl.? ~ ("class" | "struct") ~ CharsWhileNotIn("(){};") ~ balanced("{", "}").? ~ ";")
   def enm[_: P]: P[Unit] = P("enum" ~ ("class" | "struct").? ~ CharsWhileNotIn("(){};") ~ balanced("{", "}").? ~ ";")
   def prgm[_: P]: P[Unit] = P(Pass ~ (prpr | usng | tydf | func | cls | enm).rep ~ End)
